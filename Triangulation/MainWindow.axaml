@@ -1,0 +1,37 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
+        x:Class="Triangulation.MainWindow"
+        Title="Triangulation">
+	<Border BorderBrush="Black" BorderThickness="2">
+		<Canvas Name="canvas" DragDrop.AllowDrop="True" Background="White" >
+			<TextBlock Name="coord"/>
+			<Ellipse 
+				VerticalAlignment="Center" 
+				HorizontalAlignment="Center" 
+				Name="First" 
+				PointerPressed="OnPointerPressed" 
+				DragDrop.AllowDrop="True"
+				Opacity="0.5" Fill="Green" Canvas.Left="10" Canvas.Top="60" Height="100" Width="100">
+				<Ellipse.ContextMenu>
+					<ContextMenu>
+						<StackPanel>
+							<TextBlock Text="Координата x"/>
+							<TextBlock Text="Координата y"/>
+						</StackPanel>
+					</ContextMenu>
+				</Ellipse.ContextMenu>
+			</Ellipse>
+			<Canvas.ContextMenu>
+				<ContextMenu>
+					<StackPanel>
+						<TextBlock Text="hi"/>
+					</StackPanel>
+				</ContextMenu>
+			</Canvas.ContextMenu>
+		</Canvas>
+	</Border>
+
+</Window>
