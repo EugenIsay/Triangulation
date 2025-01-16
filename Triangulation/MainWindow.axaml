@@ -7,12 +7,26 @@
         Title="Triangulation">
 	<Border BorderBrush="Black" BorderThickness="2">
 		<Canvas Name="canvas" DragDrop.AllowDrop="True" Background="White" >
-			<TextBlock Name="coord"/>
-			<Ellipse 
-				VerticalAlignment="Center" 
-				HorizontalAlignment="Center" 
-				Name="First" 
-				PointerPressed="OnPointerPressed" 
+			<TextBlock Name="coord" Text="hi" Foreground="Black"/>
+			<Ellipse
+				VerticalAlignment="Center"
+				HorizontalAlignment="Center"
+				PointerPressed="OnPointerPressed"
+				DragDrop.AllowDrop="True"
+				Opacity="0.5" Fill="Green" Canvas.Left="10" Canvas.Top="60" Height="100" Width="100">
+				<Ellipse.ContextMenu>
+					<ContextMenu>
+						<StackPanel>
+							<TextBlock Text="Координата x"/>
+							<TextBlock Text="Координата y"/>
+						</StackPanel>
+					</ContextMenu>
+				</Ellipse.ContextMenu>
+			</Ellipse>
+			<Ellipse
+				VerticalAlignment="Center"
+				HorizontalAlignment="Center"
+				PointerPressed="OnPointerPressed"
 				DragDrop.AllowDrop="True"
 				Opacity="0.5" Fill="Green" Canvas.Left="10" Canvas.Top="60" Height="100" Width="100">
 				<Ellipse.ContextMenu>
