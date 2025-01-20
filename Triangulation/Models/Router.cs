@@ -13,7 +13,7 @@ namespace Triangulation.Models
         public int yCoordinate { get; set; }
         public float Frequency { get; set; }
         public int Radius { get; set; }
-        public float Distance { get; set; }
+        public int Distance { get; set; }
 
     }
 }
