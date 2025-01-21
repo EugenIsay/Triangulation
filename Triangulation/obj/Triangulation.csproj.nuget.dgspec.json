@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\zheka\\Desktop\\Projects\\tri\\Triangulation\\Triangulation.csproj": {}
+    "C:\\Users\\prdb\\Desktop\\IsayProj\\Triangulation\\Triangulation\\Triangulation.csproj": {}
   },
   "projects": {
-    "C:\\Users\\zheka\\Desktop\\Projects\\tri\\Triangulation\\Triangulation.csproj": {
+    "C:\\Users\\prdb\\Desktop\\IsayProj\\Triangulation\\Triangulation\\Triangulation.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\zheka\\Desktop\\Projects\\tri\\Triangulation\\Triangulation.csproj",
+        "projectUniqueName": "C:\\Users\\prdb\\Desktop\\IsayProj\\Triangulation\\Triangulation\\Triangulation.csproj",
         "projectName": "Triangulation",
-        "projectPath": "C:\\Users\\zheka\\Desktop\\Projects\\tri\\Triangulation\\Triangulation.csproj",
-        "packagesPath": "C:\\Users\\zheka\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\zheka\\Desktop\\Projects\\tri\\Triangulation\\obj\\",
+        "projectPath": "C:\\Users\\prdb\\Desktop\\IsayProj\\Triangulation\\Triangulation\\Triangulation.csproj",
+        "packagesPath": "C:\\Users\\prdb\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\prdb\\Desktop\\IsayProj\\Triangulation\\Triangulation\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\zheka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\prdb\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -86,7 +86,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

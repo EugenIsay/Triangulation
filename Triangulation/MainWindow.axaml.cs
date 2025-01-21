@@ -21,13 +21,13 @@ namespace Triangulation
         {
             InitializeComponent();
             AddHandler(DragDrop.DragOverEvent, DragOver);
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
                 Ellipse test = new Ellipse() { Fill = Brush.Parse("Green"), Width = 200, Height = 200, Opacity = 0.5, ZIndex = 3 };
                 test.PointerPressed += OnPointerPressed;
                 test.Tag = i;
                 canvas.Children.Add(test);
-                routers.Add(new Router() { Id = i, yCoordinate = 0, xCoordinate = 0, Radius = 200 }); ;
+                routers.Add(new Router() { Id = i, yCoordinate = 0, xCoordinate = 0, Radius = 100 }); ;
             }
             Ellipse rec = new Ellipse() { Fill = Brush.Parse("Red"), Width = 10, Height = 10, Opacity = 0.5, ZIndex = 4, Tag = -1 };
             rec.PointerPressed += OnPointerPressed;
@@ -89,36 +89,46 @@ namespace Triangulation
                 Line line = new Line()
                 {
 
-                    StartPoint = new Avalonia.Point(router1.xCoordinate + router1.Radius / 2, router1.yCoordinate + router1.Radius / 2),
-                    EndPoint = new Avalonia.Point(router2.xCoordinate + router2.Radius / 2, router2.yCoordinate + router2.Radius / 2),
+                    StartPoint = new Avalonia.Point(router1.xCoordinate + router1.Radius, router1.yCoordinate + router1.Radius),
+                    EndPoint = new Avalonia.Point(router2.xCoordinate + router2.Radius, router2.yCoordinate + router2.Radius),
                     Stroke = Brush.Parse("Blue"),
                     StrokeThickness = 2
                 };
                 canvas.Children.Add(line);
-                routers[i].Distance = (int)Math.Sqrt(Math.Pow((routers[i].xCoordinate + router1.Radius / 2) - (receiver.xCoordinate + 10 / 2), 2) + Math.Pow((routers[i].yCoordinate + router2.Radius / 2) - (receiver.yCoordinate + 10 / 2), 2));
+                routers[i].Distance = (int)Math.Sqrt(Math.Pow((routers[i].xCoordinate + router1.Radius) - (receiver.xCoordinate + 5), 2) + Math.Pow((routers[i].yCoordinate + router2.Radius) - (receiver.yCoordinate + 6), 2));
                 tst += routers[i].Distance + "|";
                 Line lineDot = new Line()
                 {
 
-                    StartPoint = new Avalonia.Point(router1.xCoordinate + router1.Radius / 2, router1.yCoordinate + router1.Radius / 2),
-                    EndPoint = new Avalonia.Point(receiver.xCoordinate + 10 / 2, receiver.yCoordinate + 10 / 2),
+                    StartPoint = new Avalonia.Point(router1.xCoordinate + router1.Radius, router1.yCoordinate + router1.Radius),
+                    EndPoint = new Avalonia.Point(receiver.xCoordinate + 5, receiver.yCoordinate + 5),
                     Stroke = Brush.Parse("Blue"),
                     StrokeThickness = 2
                 };
                 canvas.Children.Add(lineDot);
             }
             coord.Text = mousePos.X.ToString() + "|" + mousePos.Y.ToString();
-            coord2.Text = string.Join(" ", Solution( routers[0].xCoordinate, routers[1].xCoordinate, routers[2].xCoordinate, 
-                routers[0].yCoordinate, routers[1].yCoordinate, routers[2].yCoordinate,
+            coord2.Text = string.Join(" ", Solution( routers[0].xCoordinate + routers[0].Radius, routers[1].xCoordinate + routers[1].Radius, routers[2].xCoordinate + routers[2].Radius, 
+                routers[0].yCoordinate + routers[0].Radius, routers[1].yCoordinate + routers[1].Radius, routers[2].yCoordinate + routers[2].Radius,
                 routers[0].Distance, routers[1].Distance, routers[2].Distance));
             tst = "";
         }
-
-
-        public (double, double) Solution(int x1, int x2, int x3, int y1, int y2, int y3, int d1, int d2, int d3)
+        public (int, int)? Solution(int x1, int x2, int x3, int y1, int y2, int y3, int d1, int d2, int d3)
         {
-
-            return ();
+            int A1 = 2 * (x1 - x2);
+            int B1 = 2 * (y1 - y2);
+            int C1 = (x1 * x1 - x2 * x2) + (y1 * y1 - y2 * y2) - (d1 * d1 - d2 * d2);
+            int A2 = 2 * (x1 - x3);
+            int B2 = 2 * (y1 - y3);
+            int C2 = (x1 * x1 - x3 * x3) + (y1 * y1 - y3 * y3) - (d1 * d1 - d3 * d3);
+            int det = (A1 * B2 - B1 * A2);
+            if (det != 0) 
+            {
+                int x = (C1 * B2 - C2 * B1) / det; 
+                int y = (A1 * C2 - A2 * C1) / det;
+                return (x, y);
+            }
+            return null;
         }
     }
 }

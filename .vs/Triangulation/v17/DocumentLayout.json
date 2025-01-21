@@ -1,25 +1,25 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\zheka\\Desktop\\Projects\\tri\\",
+  "WorkspaceRootPath": "C:\\Users\\prdb\\Desktop\\IsayProj\\Triangulation\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{143F46A8-6257-4454-A174-1DB0DE897AEF}|Triangulation\\Triangulation.csproj|c:\\users\\zheka\\desktop\\projects\\tri\\triangulation\\mainwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{143F46A8-6257-4454-A174-1DB0DE897AEF}|Triangulation\\Triangulation.csproj|c:\\users\\prdb\\desktop\\isayproj\\triangulation\\triangulation\\mainwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{143F46A8-6257-4454-A174-1DB0DE897AEF}|Triangulation\\Triangulation.csproj|solutionrelative:triangulation\\mainwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{143F46A8-6257-4454-A174-1DB0DE897AEF}|Triangulation\\Triangulation.csproj|c:\\users\\zheka\\desktop\\projects\\tri\\triangulation\\mainwindow.axaml||{6D5344A2-2FCD-49DE-A09D-6A14FD1B1224}",
+      "AbsoluteMoniker": "D:0:0:{143F46A8-6257-4454-A174-1DB0DE897AEF}|Triangulation\\Triangulation.csproj|c:\\users\\prdb\\desktop\\isayproj\\triangulation\\triangulation\\mainwindow.axaml||{6D5344A2-2FCD-49DE-A09D-6A14FD1B1224}",
       "RelativeMoniker": "D:0:0:{143F46A8-6257-4454-A174-1DB0DE897AEF}|Triangulation\\Triangulation.csproj|solutionrelative:triangulation\\mainwindow.axaml||{6D5344A2-2FCD-49DE-A09D-6A14FD1B1224}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{143F46A8-6257-4454-A174-1DB0DE897AEF}|Triangulation\\Triangulation.csproj|c:\\users\\zheka\\desktop\\projects\\tri\\triangulation\\models\\receiver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{143F46A8-6257-4454-A174-1DB0DE897AEF}|Triangulation\\Triangulation.csproj|c:\\users\\prdb\\desktop\\isayproj\\triangulation\\triangulation\\models\\receiver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{143F46A8-6257-4454-A174-1DB0DE897AEF}|Triangulation\\Triangulation.csproj|solutionrelative:triangulation\\models\\receiver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{143F46A8-6257-4454-A174-1DB0DE897AEF}|Triangulation\\Triangulation.csproj|c:\\users\\zheka\\desktop\\projects\\tri\\triangulation\\models\\router.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{143F46A8-6257-4454-A174-1DB0DE897AEF}|Triangulation\\Triangulation.csproj|c:\\users\\prdb\\desktop\\isayproj\\triangulation\\triangulation\\models\\router.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{143F46A8-6257-4454-A174-1DB0DE897AEF}|Triangulation\\Triangulation.csproj|solutionrelative:triangulation\\models\\router.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{143F46A8-6257-4454-A174-1DB0DE897AEF}|Triangulation\\Triangulation.csproj|c:\\users\\zheka\\desktop\\projects\\tri\\triangulation\\models\\tdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{143F46A8-6257-4454-A174-1DB0DE897AEF}|Triangulation\\Triangulation.csproj|c:\\users\\prdb\\desktop\\isayproj\\triangulation\\triangulation\\models\\tdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{143F46A8-6257-4454-A174-1DB0DE897AEF}|Triangulation\\Triangulation.csproj|solutionrelative:triangulation\\models\\tdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -30,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -45,24 +45,27 @@
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "MainWindow.axaml",
-              "DocumentMoniker": "C:\\Users\\zheka\\Desktop\\Projects\\tri\\Triangulation\\MainWindow.axaml",
+              "DocumentMoniker": "C:\\Users\\prdb\\Desktop\\IsayProj\\Triangulation\\Triangulation\\MainWindow.axaml",
               "RelativeDocumentMoniker": "Triangulation\\MainWindow.axaml",
-              "ToolTip": "C:\\Users\\zheka\\Desktop\\Projects\\tri\\Triangulation\\MainWindow.axaml",
+              "ToolTip": "C:\\Users\\prdb\\Desktop\\IsayProj\\Triangulation\\Triangulation\\MainWindow.axaml",
               "RelativeToolTip": "Triangulation\\MainWindow.axaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-01-17T07:56:32.282Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-17T07:56:32.282Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "TData.cs",
-              "DocumentMoniker": "C:\\Users\\zheka\\Desktop\\Projects\\tri\\Triangulation\\Models\\TData.cs",
+              "DocumentMoniker": "C:\\Users\\prdb\\Desktop\\IsayProj\\Triangulation\\Triangulation\\Models\\TData.cs",
               "RelativeDocumentMoniker": "Triangulation\\Models\\TData.cs",
-              "ToolTip": "C:\\Users\\zheka\\Desktop\\Projects\\tri\\Triangulation\\Models\\TData.cs",
+              "ToolTip": "C:\\Users\\prdb\\Desktop\\IsayProj\\Triangulation\\Triangulation\\Models\\TData.cs",
               "RelativeToolTip": "Triangulation\\Models\\TData.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -72,9 +75,9 @@
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "Receiver.cs",
-              "DocumentMoniker": "C:\\Users\\zheka\\Desktop\\Projects\\tri\\Triangulation\\Models\\Receiver.cs",
+              "DocumentMoniker": "C:\\Users\\prdb\\Desktop\\IsayProj\\Triangulation\\Triangulation\\Models\\Receiver.cs",
               "RelativeDocumentMoniker": "Triangulation\\Models\\Receiver.cs",
-              "ToolTip": "C:\\Users\\zheka\\Desktop\\Projects\\tri\\Triangulation\\Models\\Receiver.cs",
+              "ToolTip": "C:\\Users\\prdb\\Desktop\\IsayProj\\Triangulation\\Triangulation\\Models\\Receiver.cs",
               "RelativeToolTip": "Triangulation\\Models\\Receiver.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -84,9 +87,9 @@
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "Router.cs",
-              "DocumentMoniker": "C:\\Users\\zheka\\Desktop\\Projects\\tri\\Triangulation\\Models\\Router.cs",
+              "DocumentMoniker": "C:\\Users\\prdb\\Desktop\\IsayProj\\Triangulation\\Triangulation\\Models\\Router.cs",
               "RelativeDocumentMoniker": "Triangulation\\Models\\Router.cs",
-              "ToolTip": "C:\\Users\\zheka\\Desktop\\Projects\\tri\\Triangulation\\Models\\Router.cs",
+              "ToolTip": "C:\\Users\\prdb\\Desktop\\IsayProj\\Triangulation\\Triangulation\\Models\\Router.cs",
               "RelativeToolTip": "Triangulation\\Models\\Router.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwA8AAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -96,11 +99,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "MainWindow.axaml.cs",
-              "DocumentMoniker": "C:\\Users\\zheka\\Desktop\\Projects\\tri\\Triangulation\\MainWindow.axaml.cs",
+              "DocumentMoniker": "C:\\Users\\prdb\\Desktop\\IsayProj\\Triangulation\\Triangulation\\MainWindow.axaml.cs",
               "RelativeDocumentMoniker": "Triangulation\\MainWindow.axaml.cs",
-              "ToolTip": "C:\\Users\\zheka\\Desktop\\Projects\\tri\\Triangulation\\MainWindow.axaml.cs",
+              "ToolTip": "C:\\Users\\prdb\\Desktop\\IsayProj\\Triangulation\\Triangulation\\MainWindow.axaml.cs",
               "RelativeToolTip": "Triangulation\\MainWindow.axaml.cs",
-              "ViewState": "AQIAAHEAAAAAAAAAAAAqwHgAAAAUAAAA",
+              "ViewState": "AgIAADgAAAAAAAAAAAAIwEIAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-15T07:17:41.695Z",
               "EditorCaption": ""

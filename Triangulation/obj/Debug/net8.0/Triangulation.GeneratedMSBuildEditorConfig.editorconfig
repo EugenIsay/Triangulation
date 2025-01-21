@@ -15,12 +15,12 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Triangulation
-build_property.ProjectDir = C:\Users\zheka\Desktop\Projects\tri\Triangulation\
+build_property.ProjectDir = C:\Users\prdb\Desktop\IsayProj\Triangulation\Triangulation\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 
-[C:/Users/zheka/Desktop/Projects/tri/Triangulation/App.axaml]
+[C:/Users/prdb/Desktop/IsayProj/Triangulation/Triangulation/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/zheka/Desktop/Projects/tri/Triangulation/MainWindow.axaml]
+[C:/Users/prdb/Desktop/IsayProj/Triangulation/Triangulation/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

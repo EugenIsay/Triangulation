@@ -9,10 +9,15 @@
 		<Border ZIndex="5" DockPanel.Dock="Top" Background="White" BorderBrush="Black" BorderThickness="2">
 			<Grid Margin="5" ColumnDefinitions="*,*,*,*,*">
 				<TextBlock Grid.Column="0" Name="coord" Foreground="Black"/>
-				
+
 				<Button Grid.Column="1" Background="Gainsboro" Foreground="Black" Name="AddRouter" Content="Добавить роутер"/>
 
-				<TextBlock Grid.Column="2" Name="coord2" Foreground="Black"/>
+				<StackPanel Orientation="Horizontal" Grid.Column="2">
+					<TextBlock  Name="coord2" Foreground="Black"/>
+					<TextBlock Name="detText" Foreground="Black"/>
+					<TextBlock Name="distText" Foreground="Black"/>
+
+				</StackPanel>
 			</Grid>
 		</Border>
 		<Canvas DockPanel.Dock="Bottom" Name="canvas" DragDrop.AllowDrop="True" Background="White" >
