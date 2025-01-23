@@ -16,10 +16,11 @@
 				<TextBox TextChanged="TextBox_Coordinates" Name="yText"/>
 				<TextBlock Text="Радиус"/>
 				<TextBox TextChanged="TextBox_Radius" Name="RadiusText"/>
+				<TextBlock Text="Частота"/>
+				<TextBox TextChanged="TextBox_Frequency"  Name="Frequency"/>
 				<TextBlock Text="Дистанция"/>
 				<TextBlock Name="DistanceText"/>
-				<Button Content="Готово"/>
-				
+				<Button Content="Готово" Click="Button_Click"/>
 			</StackPanel>
 		</Border>
 		<Ellipse Grid.Column="2" Grid.Row="1" Fill="Green" Name="ShowEll"/>

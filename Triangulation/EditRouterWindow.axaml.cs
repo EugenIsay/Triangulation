@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using System;
 using System.Diagnostics.Metrics;
 using System.Xml.Linq;
 using Triangulation.Models;
@@ -9,7 +10,8 @@ namespace Triangulation;
 
 public partial class EditRouterWindow : Window
 {
-    Router router = new Router();
+    int x = 0, y = 0;
+    int Id = -1;
     public EditRouterWindow()
     {
         InitializeComponent();
@@ -17,6 +19,8 @@ public partial class EditRouterWindow : Window
     public EditRouterWindow(int id)
     {
         InitializeComponent();
+        Router router = new Router();
+        Id = id;
         router = TData.Routers[id];
         xText .Text = router.xReal.ToString();
         yText.Text = router.yReal.ToString();
@@ -44,16 +48,53 @@ public partial class EditRouterWindow : Window
         {
             if ((sender as TextBox).Name == "xText")
             {
-                router.xReal = (int)result;
+                x = (int)result;
             }
             else
             {
-                router.yReal = (int)result;
+                y = (int)result;
             }
             TData.ChangeDictance();
-            DistanceText.Text = router.Distance.ToString();
+            DistanceText.Text = ((int)Math.Sqrt(Math.Pow((x) - (TData.Receiver.xReal), 2) + Math.Pow((y) - (TData.Receiver.yReal), 2))).ToString();
         }
         else
+        {
+            (sender as TextBox).Text = "0";
+        }
+    }
+
+    private void Button_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (string.IsNullOrEmpty(Frequency.Text))
+        {
+            Frequency.Text = "0";
+        }
+        Router router = new Router();
+        if (Id != -1)
+        {
+            router = TData.Routers[Id];
+            router.xReal = x;
+            router.yReal = y;
+            router.Distance = int.Parse(DistanceText.Text);
+            router.Frequency = int.Parse(Frequency.Text);
+            router.Radius = int.Parse(RadiusText.Text);
+            TData.Routers[Id] = router;
+        }
+        else
+        {
+            router.xReal = x;
+            router.yReal = y;
+            router.Distance = int.Parse(DistanceText.Text);
+            router.Frequency = int.Parse(Frequency.Text);
+            router.Radius = int.Parse(RadiusText.Text);
+            TData.Routers.Add(router);
+        }
+        this.Close();
+    }
+
+    private void TextBox_Frequency(object? sender, Avalonia.Controls.TextChangedEventArgs e)
+    {
+        if (!float.TryParse((sender as TextBox).Text, out float result))
         {
             (sender as TextBox).Text = "0";
         }

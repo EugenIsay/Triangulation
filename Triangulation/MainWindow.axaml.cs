@@ -14,14 +14,14 @@ namespace Triangulation
 {
     public partial class MainWindow : Window
     {
-        string tst = "";
         Ellipse Ellipse { get; set; }
         Router selectedRouter = new Router();
+
         public MainWindow()
         {
             InitializeComponent();
             AddHandler(DragDrop.DragOverEvent, DragOver);
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 10; i++)
             {
                 Ellipse test = new Ellipse() { Fill = Brush.Parse("Green"), Width = 200, Height = 200, Opacity = 0.5, ZIndex = 3 };
                 test.PointerPressed += OnPointerPressed;
@@ -30,11 +30,12 @@ namespace Triangulation
                 TData.Routers.Add(new Router() { Id = i, yCoordinate = 0, xCoordinate = 0, Radius = 100 });
                 test.DoubleTapped += DoubleTapped;
             }
-            Ellipse rec = new Ellipse() { Fill = Brush.Parse("Red"), Width = 10, Height = 10, Opacity = 0.5, ZIndex = 4, Tag = -1 };
+            Ellipse rec = new Ellipse() { Fill = Brush.Parse("Red"), Width = 10, Height = 10, Opacity = 0.5, ZIndex = 5, Tag = -1 };
             rec.PointerPressed += OnPointerPressed;
             canvas.Children.Add(rec);
             TData.Receiver = new Receiver() { yCoordinate = 0, xCoordinate = 0 };
         }
+
         private async void OnPointerPressed(object? sender, PointerPressedEventArgs e)
         {
             var mousePos = e.GetPosition(canvas);
@@ -43,8 +44,8 @@ namespace Triangulation
             var result = await DragDrop.DoDragDrop(e, dragData, DragDropEffects.Move);
             Ellipse = null;
             selectedRouter = new Router();
-
         }
+
         private void DragOver(object? sender, DragEventArgs e)
         {
             e.DragEffects = DragDropEffects.Move;
@@ -78,40 +79,16 @@ namespace Triangulation
                     TData.Receiver.yCoordinate = ((int)(mousePos.Y - Ellipse.Width / 2));
                 }
             }
-            canvas.Children.RemoveAll(canvas.Children.Where(c => c.GetType().Name == "Line"));
-            TData.ChangeDictance();
-            for (int i = 0; i < TData.Routers.Count; i++)
-            {
-                Router router1 = TData.Routers[i];
-                Router router2;
-                if (i + 1 == TData.Routers.Count)
-                    router2 = TData.Routers[0];
-                else
-                    router2 = TData.Routers[i + 1];
-                Line line = new Line()
-                {
-
-                    StartPoint = new Avalonia.Point(router1.xReal, router1.yReal),
-                    EndPoint = new Avalonia.Point(router2.xReal, router2.yReal),
-                    Stroke = Brush.Parse("Blue"),
-                    StrokeThickness = 2
-                };
-                canvas.Children.Add(line);
-
-                tst += TData.Routers[i].Distance + "|";
-                Line lineDot = new Line()
-                {
-                    StartPoint = new Avalonia.Point(router1.xReal, router1.yReal),
-                    EndPoint = new Avalonia.Point(TData.Receiver.xCoordinate + 5, TData.Receiver.yCoordinate + 5),
-                    Stroke = Brush.Parse("Blue"),
-                    StrokeThickness = 2
-                };
-                canvas.Children.Add(lineDot);
-            }
+            DrawLines();
             coord.Text = mousePos.X.ToString() + "|" + mousePos.Y.ToString();
-            coord2.Text = string.Join(" ", Solution(TData.Routers));
-            tst = "";
+            List<Router> routers = TData.Routers.OrderBy(r => r.Distance).Take(3).ToList();
+            coord2.Text = string.Join(" ", Solution(routers));
+            for (int i = 0; i < 3; i++)
+            {
+                (Bars.Children.ToList()[i] as ProgressBar).Value = routers[i].Coof;
+            }
         }
+
         public (int, int)? Solution(List<Router> routers)
         {
             for (int i = 0; i < 3; i++)
@@ -121,10 +98,10 @@ namespace Triangulation
                     return (null);
                 }
             }
-            int A1 = 2 * (routers[0].xReal  - routers[1].xReal);
+            int A1 = 2 * (routers[0].xReal - routers[1].xReal);
             int B1 = 2 * (routers[0].yReal - routers[1].yReal);
-            int C1 = (routers[0].xReal * routers[0].xReal - routers[1].xReal * routers[1].xReal) 
-                + (routers[0].yReal * routers[0].yReal - routers[1].yReal * routers[1].yReal) 
+            int C1 = (routers[0].xReal * routers[0].xReal - routers[1].xReal * routers[1].xReal)
+                + (routers[0].yReal * routers[0].yReal - routers[1].yReal * routers[1].yReal)
                 - (routers[0].Distance * routers[0].Distance - routers[1].Distance * routers[1].Distance);
 
             int A2 = 2 * (routers[0].xReal - routers[2].xReal);
@@ -134,9 +111,9 @@ namespace Triangulation
                 - (routers[0].Distance * routers[0].Distance - routers[2].Distance * routers[2].Distance);
 
             int det = (A1 * B2 - B1 * A2);
-            if (det != 0) 
+            if (det != 0)
             {
-                int x = (C1 * B2 - C2 * B1) / det; 
+                int x = (C1 * B2 - C2 * B1) / det;
                 int y = (A1 * C2 - A2 * C1) / det;
                 return (x, y);
             }
@@ -145,7 +122,57 @@ namespace Triangulation
 
         private async void DoubleTapped(object? sender, Avalonia.Input.TappedEventArgs e)
         {
-            await new EditRouterWindow(int.Parse((sender as Ellipse).Tag.ToString())).ShowDialog(this);
+            int Id = int.Parse((sender as Ellipse).Tag.ToString());
+            await new EditRouterWindow(Id).ShowDialog(this);
+
+            Canvas.SetLeft(sender as Ellipse, TData.Routers[Id].xCoordinate);
+            Canvas.SetTop(sender as Ellipse, TData.Routers[Id].yCoordinate);
+            (sender as Ellipse).Width = TData.Routers[Id].Radius * 2;
+            (sender as Ellipse).Height = TData.Routers[Id].Radius * 2;
+        }
+
+        private void Button_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            new EditRouterWindow().Show();
+        }
+        public void DrawLines()
+        {
+            foreach (Ellipse ellipse in canvas.Children.Where(e => e.GetType().Name == "Ellipse" && (e as Ellipse).Fill != Brush.Parse("Red")) )
+            {
+                ellipse.Fill = Brush.Parse("Green");
+            }
+            canvas.Children.RemoveAll(canvas.Children.Where(c => c.GetType().Name == "Line"));
+            TData.ChangeDictance();
+            List<Router> routers = TData.Routers.OrderBy(r => r.Distance).Take(3).ToList();
+            for (int i = 0; i < routers.Count; i++)
+            {
+                Router router1 = routers[i];
+                Router router2;
+                if (i + 1 == routers.Count)
+                    router2 = routers[0];
+                else
+                    router2 = routers[i + 1];
+                Line line = new Line()
+                {
+                    StartPoint = new Avalonia.Point(router1.xReal, router1.yReal),
+                    EndPoint = new Avalonia.Point(router2.xReal, router2.yReal),
+                    Stroke = Brush.Parse("Blue"),
+                    StrokeThickness = 2,
+                    ZIndex = 2
+                };
+                canvas.Children.Add(line);
+                Line lineDot = new Line()
+                {
+                    StartPoint = new Avalonia.Point(router1.xReal, router1.yReal),
+                    EndPoint = new Avalonia.Point(TData.Receiver.xReal, TData.Receiver.yReal),
+                    Stroke = Brush.Parse("Blue"),
+                    StrokeThickness = 2,
+                    ZIndex = 2
+                };
+                canvas.Children.Add(lineDot);
+
+                (canvas.Children.FirstOrDefault(e => int.Parse(e.Tag.ToString()) == router1.Id) as Ellipse).Fill = Brush.Parse("GreenYellow");
+            }
         }
     }
 }

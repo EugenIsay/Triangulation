@@ -24,6 +24,15 @@ namespace Triangulation.Models
         public float Frequency { get; set; }
         public int Radius { get; set; }
         public int Distance { get; set; }
-
+        public int Coof
+        {
+            get
+            {
+                var result =  (int)((((float)Distance / (float)Radius) * -1 + 1) * 100);
+                if (result < 0)
+                    result = 0;
+                return result;
+            }
+        }
     }
 }
