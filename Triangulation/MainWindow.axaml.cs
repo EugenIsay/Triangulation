@@ -4,6 +4,7 @@ using Avalonia.Input;
 using Avalonia.Media;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Threading.Tasks;
@@ -21,37 +22,42 @@ namespace Triangulation
         {
             InitializeComponent();
             AddHandler(DragDrop.DragOverEvent, DragOver);
-            for (int i = 0; i < 10; i++)
+            // Добавляет начальные круги
+            for (int i = 0; i < 200; i++)
             {
                 Ellipse test = new Ellipse() { Fill = Brush.Parse("Green"), Width = 200, Height = 200, Opacity = 0.5, ZIndex = 3 };
                 test.PointerPressed += OnPointerPressed;
                 test.Tag = i;
                 canvas.Children.Add(test);
-                TData.Routers.Add(new Router() { Id = i, yCoordinate = 0, xCoordinate = 0, Radius = 100 });
+                TData.Routers.Add(new Router() { Id = i, yCoordinate = 0, xCoordinate = 0, Radius = 100, Frequency = float.Parse("2,4")});
                 test.DoubleTapped += DoubleTapped;
             }
+            // Добавляет датчик
             Ellipse rec = new Ellipse() { Fill = Brush.Parse("Red"), Width = 10, Height = 10, Opacity = 0.5, ZIndex = 5, Tag = -1 };
             rec.PointerPressed += OnPointerPressed;
             canvas.Children.Add(rec);
             TData.Receiver = new Receiver() { yCoordinate = 0, xCoordinate = 0 };
         }
 
+        // Метод, когда пользователь отпускает обьект
         private async void OnPointerPressed(object? sender, PointerPressedEventArgs e)
         {
             var mousePos = e.GetPosition(canvas);
-
             var dragData = new DataObject();
             var result = await DragDrop.DoDragDrop(e, dragData, DragDropEffects.Move);
             Ellipse = null;
             selectedRouter = new Router();
         }
 
+        // Метод, когда пользователь берёт обьект мышкой
         private void DragOver(object? sender, DragEventArgs e)
         {
+            // Эта часть кода перемщает обьект по канвасу
             e.DragEffects = DragDropEffects.Move;
             if (Ellipse == null)
                 Ellipse = e.Source as Ellipse;
             var mousePos = e.GetPosition(canvas);
+            
             if (Int32.Parse(Ellipse.Tag.ToString()) != -1)
             {
                 selectedRouter = TData.Routers.FirstOrDefault(r => r.Id == int.Parse(Ellipse.Tag.ToString()));
@@ -79,18 +85,32 @@ namespace Triangulation
                     TData.Receiver.yCoordinate = ((int)(mousePos.Y - Ellipse.Width / 2));
                 }
             }
+            //Метод, рисующий линии между роутарами и получатеелем.
             DrawLines();
-            coord.Text = mousePos.X.ToString() + "|" + mousePos.Y.ToString();
-            List<Router> routers = TData.Routers.OrderBy(r => r.Distance).Take(3).ToList();
-            coord2.Text = string.Join(" ", Solution(routers));
+            List<Router> routers = TData.Routers.OrderBy(r => r.Distance).Take(3).OrderBy(r => r.Id).ToList();
+            coord.Text = "";
+            if (Int32.Parse(Ellipse.Tag.ToString()) != -1)
+            {
+                coord.Text = mousePos.X.ToString() + "|" + mousePos.Y.ToString();
+            }
+            else
+            {
+                coord.Text = Solution(routers).ToString();
+            }
             for (int i = 0; i < 3; i++)
             {
                 (Bars.Children.ToList()[i] as ProgressBar).Value = routers[i].Coof;
+                string d = "Вне зоны доступа";
+                if (routers[i].Distance < routers[i].Radius) 
+                    d = routers[i].Distance.ToString();
+                (Info.Children.ToList()[i] as TextBlock).Text = $" ID вышки: {routers[i].Id}, частота: {routers[i].Frequency}, расстояние до точки: {d}, качество связи:";
             }
         }
 
+        //Метод для расчёта координат получателя
         public (int, int)? Solution(List<Router> routers)
         {
+            // Если дистанция больше радиуса, то ничего не возвращает
             for (int i = 0; i < 3; i++)
             {
                 if (routers[i].Distance > routers[i].Radius)
@@ -98,6 +118,7 @@ namespace Triangulation
                     return (null);
                 }
             }
+            // Формула расчёта по крамеру
             int A1 = 2 * (routers[0].xReal - routers[1].xReal);
             int B1 = 2 * (routers[0].yReal - routers[1].yReal);
             int C1 = (routers[0].xReal * routers[0].xReal - routers[1].xReal * routers[1].xReal)
@@ -120,6 +141,7 @@ namespace Triangulation
             return null;
         }
 
+        // Метод, открывающий редактирование для роутера
         private async void DoubleTapped(object? sender, Avalonia.Input.TappedEventArgs e)
         {
             int Id = int.Parse((sender as Ellipse).Tag.ToString());
@@ -131,19 +153,26 @@ namespace Triangulation
             (sender as Ellipse).Height = TData.Routers[Id].Radius * 2;
         }
 
+        // Метод, открывающий добавление роутера
         private void Button_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             new EditRouterWindow().Show();
         }
+
+        // Метод, рисующий линии между роутерами и обьектом, а так же меняет цвет ближайших к получателю роутеры
         public void DrawLines()
         {
+            // Сброс линий, а так же цвета всех роутеров 
             foreach (Ellipse ellipse in canvas.Children.Where(e => e.GetType().Name == "Ellipse" && (e as Ellipse).Fill != Brush.Parse("Red")) )
             {
                 ellipse.Fill = Brush.Parse("Green");
             }
             canvas.Children.RemoveAll(canvas.Children.Where(c => c.GetType().Name == "Line"));
+            // Обновление дистанции до точки
             TData.ChangeDictance();
+            // Ближайшие к точке роутеры
             List<Router> routers = TData.Routers.OrderBy(r => r.Distance).Take(3).ToList();
+            
             for (int i = 0; i < routers.Count; i++)
             {
                 Router router1 = routers[i];
@@ -152,6 +181,7 @@ namespace Triangulation
                     router2 = routers[0];
                 else
                     router2 = routers[i + 1];
+                // Линия, которая появляется между роутерами
                 Line line = new Line()
                 {
                     StartPoint = new Avalonia.Point(router1.xReal, router1.yReal),
@@ -161,6 +191,7 @@ namespace Triangulation
                     ZIndex = 2
                 };
                 canvas.Children.Add(line);
+                // Линия, идущая  к получателю
                 Line lineDot = new Line()
                 {
                     StartPoint = new Avalonia.Point(router1.xReal, router1.yReal),
@@ -170,8 +201,12 @@ namespace Triangulation
                     ZIndex = 2
                 };
                 canvas.Children.Add(lineDot);
-
-                (canvas.Children.FirstOrDefault(e => int.Parse(e.Tag.ToString()) == router1.Id) as Ellipse).Fill = Brush.Parse("GreenYellow");
+                // Смена цвета роутера
+                Ellipse? ellipse = (canvas.Children.FirstOrDefault(e => int.Parse(e.Tag.ToString()) == router1.Id) as Ellipse);
+                if (router1.Distance < router1.Radius)
+                    ellipse.Fill = Brush.Parse("GreenYellow");
+                else
+                    ellipse.Fill = Brush.Parse("LightGreen");
             }
         }
     }

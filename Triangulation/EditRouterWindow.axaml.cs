@@ -2,7 +2,9 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.Metrics;
+using System.Linq;
 using System.Xml.Linq;
 using Triangulation.Models;
 
@@ -22,6 +24,8 @@ public partial class EditRouterWindow : Window
         Router router = new Router();
         Id = id;
         router = TData.Routers[id];
+        List<string> strings = Frequency.Items.Select(s => s.ToString()).ToList();
+        Frequency.SelectedIndex =  Frequency.Items.Source.IndexOf($"ComboBoxItem (Content = {router.Frequency.ToString()})");
         xText .Text = router.xReal.ToString();
         yText.Text = router.yReal.ToString();
         RadiusText.Text = router.Radius.ToString();
@@ -47,36 +51,22 @@ public partial class EditRouterWindow : Window
         if (int.TryParse((sender as TextBox).Text, out int result))
         {
             if ((sender as TextBox).Name == "xText")
-            {
                 x = (int)result;
-            }
             else
-            {
                 y = (int)result;
-            }
-            TData.ChangeDictance();
-            DistanceText.Text = ((int)Math.Sqrt(Math.Pow((x) - (TData.Receiver.xReal), 2) + Math.Pow((y) - (TData.Receiver.yReal), 2))).ToString();
         }
         else
-        {
             (sender as TextBox).Text = "0";
-        }
     }
 
     private void Button_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        if (string.IsNullOrEmpty(Frequency.Text))
-        {
-            Frequency.Text = "0";
-        }
         Router router = new Router();
         if (Id != -1)
         {
             router = TData.Routers[Id];
             router.xReal = x;
             router.yReal = y;
-            router.Distance = int.Parse(DistanceText.Text);
-            router.Frequency = int.Parse(Frequency.Text);
             router.Radius = int.Parse(RadiusText.Text);
             TData.Routers[Id] = router;
         }
@@ -84,8 +74,6 @@ public partial class EditRouterWindow : Window
         {
             router.xReal = x;
             router.yReal = y;
-            router.Distance = int.Parse(DistanceText.Text);
-            router.Frequency = int.Parse(Frequency.Text);
             router.Radius = int.Parse(RadiusText.Text);
             TData.Routers.Add(router);
         }

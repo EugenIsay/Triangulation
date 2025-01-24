@@ -17,9 +17,10 @@
 				<TextBlock Text="Радиус"/>
 				<TextBox TextChanged="TextBox_Radius" Name="RadiusText"/>
 				<TextBlock Text="Частота"/>
-				<TextBox TextChanged="TextBox_Frequency"  Name="Frequency"/>
-				<TextBlock Text="Дистанция"/>
-				<TextBlock Name="DistanceText"/>
+				<ComboBox Name="Frequency">
+					<ComboBoxItem>2.4</ComboBoxItem>
+					<ComboBoxItem>5</ComboBoxItem>
+				</ComboBox>
 				<Button Content="Готово" Click="Button_Click"/>
 			</StackPanel>
 		</Border>
