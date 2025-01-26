@@ -23,19 +23,19 @@ namespace Triangulation
             InitializeComponent();
             AddHandler(DragDrop.DragOverEvent, DragOver);
             // Добавляет начальные круги
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < 3; i++)
             {
-                Ellipse test = new Ellipse() { Fill = Brush.Parse("Green"), Width = 200, Height = 200, Opacity = 0.5, ZIndex = 3 };
-                test.PointerPressed += OnPointerPressed;
-                test.Tag = i;
-                canvas.Children.Add(test);
+                Ellipse router = new Ellipse() { Fill = Brush.Parse("Green"), Width = 200, Height = 200, Opacity = 0.5, ZIndex = 3 };
+                router.PointerPressed += OnPointerPressed;
+                router.Tag = i;
+                canvas.Children.Add(router);
                 TData.Routers.Add(new Router() { Id = i, yCoordinate = 0, xCoordinate = 0, Radius = 100, Frequency = float.Parse("2,4")});
-                test.DoubleTapped += DoubleTapped;
+                router.DoubleTapped += DoubleTapped;
             }
             // Добавляет датчик
-            Ellipse rec = new Ellipse() { Fill = Brush.Parse("Red"), Width = 10, Height = 10, Opacity = 0.5, ZIndex = 5, Tag = -1 };
-            rec.PointerPressed += OnPointerPressed;
-            canvas.Children.Add(rec);
+            Ellipse recover = new Ellipse() { Fill = Brush.Parse("Red"), Width = 10, Height = 10, Opacity = 0.5, ZIndex = 5, Tag = -1 };
+            recover.PointerPressed += OnPointerPressed;
+            canvas.Children.Add(recover);
             TData.Receiver = new Receiver() { yCoordinate = 0, xCoordinate = 0 };
         }
 
@@ -146,17 +146,37 @@ namespace Triangulation
         {
             int Id = int.Parse((sender as Ellipse).Tag.ToString());
             await new EditRouterWindow(Id).ShowDialog(this);
+            if (canvas.Children.Where(e => e.GetType().Name == "Ellipse" && (e as Ellipse).Fill != Brush.Parse("Red")).Count() > TData.Routers.Count() )
+            {
+                canvas.Children.Remove(canvas.Children.FirstOrDefault(e => int.Parse(e.Tag.ToString()) == Id));
+            }
+            else
+            {
+                Canvas.SetLeft(sender as Ellipse, TData.Routers[Id].xCoordinate); 
+                Canvas.SetTop(sender as Ellipse, TData.Routers[Id].yCoordinate);
+                (sender as Ellipse).Width = TData.Routers[Id].Radius * 2;
+                (sender as Ellipse).Height = TData.Routers[Id].Radius * 2;
+            }
+            DrawLines();
 
-            Canvas.SetLeft(sender as Ellipse, TData.Routers[Id].xCoordinate);
-            Canvas.SetTop(sender as Ellipse, TData.Routers[Id].yCoordinate);
-            (sender as Ellipse).Width = TData.Routers[Id].Radius * 2;
-            (sender as Ellipse).Height = TData.Routers[Id].Radius * 2;
         }
 
         // Метод, открывающий добавление роутера
-        private void Button_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        private async void Button_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            new EditRouterWindow().Show();
+            await new EditRouterWindow().ShowDialog(this);
+            if (canvas.Children.Where(e => e.GetType().Name == "Ellipse" && (e as Ellipse).Fill != Brush.Parse("Red")).Count() < TData.Routers.Count)
+            {
+                Router newRouter = TData.Routers.Last();
+                Ellipse router = new Ellipse() { Fill = Brush.Parse("Green"), Width = newRouter.Radius*2, Height = newRouter.Radius * 2, Opacity = 0.5, ZIndex = 3, };
+                router.PointerPressed += OnPointerPressed;
+                router.Tag = newRouter.Id;
+                canvas.Children.Add(router);
+                Canvas.SetLeft(router, newRouter.xReal);
+                Canvas.SetTop(router, newRouter.yReal);
+                router.DoubleTapped += DoubleTapped;
+            }
+            DrawLines();
         }
 
         // Метод, рисующий линии между роутерами и обьектом, а так же меняет цвет ближайших к получателю роутеры
