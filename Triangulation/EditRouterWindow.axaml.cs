@@ -39,6 +39,7 @@ public partial class EditRouterWindow : Window
         ShowEll.Width = router.Radius * 2;
         ShowEll.Height = router.Radius * 2; ;
     }
+
     // ћетод провер€ющий что пользователь правильно вводит радиус
     private void TextBox_Radius(object? sender, Avalonia.Controls.TextChangedEventArgs e)
     {
@@ -52,7 +53,7 @@ public partial class EditRouterWindow : Window
             (sender as TextBox).Text = "1";
         }
     }
-
+    // ћетод провер€ющий, что x и y правильно ввод€тс€
     private void TextBox_Coordinates(object? sender, Avalonia.Controls.TextChangedEventArgs e)
     {
         if (int.TryParse((sender as TextBox).Text, out int result) && result >= 0)
@@ -65,7 +66,7 @@ public partial class EditRouterWindow : Window
         else
             (sender as TextBox).Text = "0";
     }
-
+    //  нопка потвердлающие изменени€
     private void Button_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         Router router = new Router();
@@ -90,14 +91,8 @@ public partial class EditRouterWindow : Window
         this.Close();
     }
 
-    private void TextBox_Frequency(object? sender, Avalonia.Controls.TextChangedEventArgs e)
-    {
-        if (!float.TryParse((sender as TextBox).Text, out float result))
-        {
-            (sender as TextBox).Text = "0";
-        }
-    }
 
+    // ћнтод отвечающий за удаление роутера из списка
     private void DeleteButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         TData.Routers.Remove(TData.Routers.FirstOrDefault(r => r.Id == Id)); 

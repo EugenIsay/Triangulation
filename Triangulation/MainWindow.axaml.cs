@@ -15,6 +15,7 @@ namespace Triangulation
 {
     public partial class MainWindow : Window
     {
+        // Временые переменные для сохранения данных о взятом в курсор обекте
         Ellipse Ellipse { get; set; }
         Router selectedRouter = new Router();
 
@@ -87,6 +88,8 @@ namespace Triangulation
             }
             //Метод, рисующий линии между роутарами и получатеелем.
             DrawLines();
+            // Это часть ищет три ближайших роутера, а так же вывод координаты взятого обьекта,
+            // если это возмонжо. ТАк же выводит данные о ближайших роутерах
             List<Router> routers = TData.Routers.OrderBy(r => r.Distance).Take(3).OrderBy(r => r.Id).ToList();
             coord.Text = "";
             if (Int32.Parse(Ellipse.Tag.ToString()) != -1)

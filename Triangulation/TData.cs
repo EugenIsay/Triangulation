@@ -9,8 +9,10 @@ namespace Triangulation
 {
     public static class TData
     {
+        // Роутеры и приниматель
         public static Receiver Receiver = new Receiver();
         public static List<Router> Routers = new List<Router>();
+        // Метод для измерения дистанции между принимателем и роутерами
         public static void ChangeDictance()
         {
             foreach (Router router in Routers)
